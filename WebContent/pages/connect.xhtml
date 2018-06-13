@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.session}" content="0; URL=acceuil.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+</h:head>
+<h:body style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<img src="../images/logo_BIG.png" />
+	<hr />
+	<br />
+	<center>
+		<div style="background-color: #BABABA; width: 100%">
+			<br />
+			<br /> <font size="9">Gestion des outillages de production</font> <br />
+			<br />
+			<br />
+		</div>
+	</center>
+	<br />
+	<table width="100%">
+		<tr>
+			<td width="28%"></td>
+			<td><p:fieldset legend="Authentification">
+					<h:form id="formID">
+						<table width="100%">
+							<tr>
+								<td>
+									<table width="100%">
+										<tr>
+											<td><p:outputLabel value="Nom utilisateur" /><font
+												color="red" size="2">*</font></td>
+											<td>: <p:inputText value="#{userBean.username}"
+													id="logID" /></td>
+										</tr>
+										<tr>
+											<td><p:outputLabel value="Mot de passe" /><font
+												color="red" size="2">*</font></td>
+											<td>: <p:inputText type="password"
+													value="#{userBean.password}" id="mdpID" /></td>
+										</tr>
+									</table>
+								</td>
+								<td align="right"><img src="../images/login.png" /></td>
+							</tr>
+						</table>
+						<center>
+							<p:commandButton value="Connexion" icon="fa fa-fw fa-key"
+								action="#{userBean.connecter}" update="logID,mdpID"
+								style="width : 150px" />
+							<p:commandButton value="Annuler" icon="fa fa-fw fa-remove"
+								action="#{userBean.annuler}" update="logID,mdpID"
+								style="width : 150px" />
+						</center>
+						<br />
+						<p:messages id="messages" closable="true" showDetail="true"
+							style="FONT-SIZE: small; FONT-STYLE: italic;">
+							<p:autoUpdate />
+						</p:messages>
+
+					</h:form>
+				</p:fieldset></td>
+			<td width="28%"></td>
+		</tr>
+
+	</table>
+</h:body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://localhost:8080/AFG/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 avr. 2018 14:26:28 by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+	<class name="com.AFG.persistance.Demande" table="demande"
+		catalog="afg_database" optimistic-lock="version">
+		<id name="reference" type="int">
+			<column name="reference" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="outillage" class="com.AFG.persistance.Outillage"
+			fetch="select">
+			<column name="outillage" not-null="true" />
+		</many-to-one>
+		<many-to-one name="demandeur" class="com.AFG.persistance.User"
+			fetch="select">
+			<column name="demandeur" not-null="true" />
+		</many-to-one>
+		<property name="nature" type="string">
+			<column name="nature" length="45" />
+		</property>
+		<property name="qte" type="int">
+			<column name="qte" not-null="true" />
+		</property>
+		<property name="state" type="java.lang.Integer">
+			<column name="state" />
+		</property>
+		<property name="date" type="date">
+			<column name="date" length="10" />
+		</property>
+		<property name="ch" type="string">
+			<column name="ch" length="200" />
+		</property>
+		<property name="notes" type="string">
+			<column name="notes" length="200" />
+		</property>
+	</class>
+</hibernate-mapping>

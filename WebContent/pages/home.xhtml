@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+</h:head>
+<h:body style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<ui:include src="header.xhtml" />
+	<table width="100%">
+		<tr>
+			<td width="20%"></td>
+			<td><h:form id="formID">
+					<p:panelGrid columns="1" layout="grid" style="width:100%;">
+						<div>
+							<p:outputLabel value="INFORMATIONS GENERALE DE L'UTILISATEUR :"
+								style="font-size:18pt" />
+							<p:outputLabel value="#{userBean.reference}"
+								style="font-size:18pt;color:red" />       
+							<p:commandButton id="edit" update="edit,save,annuler,infos"
+								value="Modifier" icon="fa fa-fw fa-edit"
+								disabled="#{userBean.edit}"
+								actionListener="#{userBean.editClick}" />
+							<p:commandButton id="save" update="edit,save,annuler,infos"
+								value="Enregistrer" icon="fa fa-fw fa-save"
+								disabled="#{userBean.save}"
+								actionListener="#{userBean.saveClick}" />
+							<p:commandButton id="annuler" update="edit,save,annuler,infos"
+								value="Annuler" icon="fa fa-fw fa-close"
+								disabled="#{userBean.save}"
+								actionListener="#{userBean.annulerClick}" />
+						</div>
+						<br />
+						<p:panelGrid id="infos" columns="2" layout="grid"
+							style="width:100%">
+							<p:outputLabel value="Nom d'utilisateur" />
+							<p:inputText value="#{userBean.username}" readonly="true"
+								style="color:grey" />
+							<p:outputLabel value="Nom" />
+							<p:inputText value="#{userBean.nom}" readonly="#{userBean.save}"
+								style="color:#{userBean.color}" />
+							<p:outputLabel value="Prénom" />
+							<p:inputText value="#{userBean.prenom}"
+								readonly="#{userBean.save}" style="color:#{userBean.color}" />
+							<p:outputLabel value="Adresse" />
+							<p:inputText value="#{userBean.adress}"
+								readonly="#{userBean.save}" style="color:#{userBean.color}" />
+							<p:outputLabel value="Téléphone" />
+							<p:inputText value="#{userBean.tel}" readonly="#{userBean.save}"
+								style="color:#{userBean.color}" />
+							<p:outputLabel value="E-mail" />
+							<p:inputText value="#{userBean.email}"
+								readonly="#{userBean.save}" style="color:#{userBean.color}" />
+							<p:commandLink value="changer mot de passe"
+								style="font-size:small; font-style:italic"
+								onclick="PF('dlg2').show();" />
+						</p:panelGrid>
+						<p:messages id="messages" closable="true" showDetail="true"
+							style="FONT-SIZE: small; FONT-STYLE: italic;">
+							<p:autoUpdate />
+						</p:messages>
+					</p:panelGrid>
+				</h:form></td>
+			<td width="20%"></td>
+		</tr>
+	</table>
+
+	<p:dialog header="Changer mot de passe" widgetVar="dlg2" modal="true"
+		width="600" draggable="false" resizable="false">
+		<h:form id="dlg2">
+			<table>
+				<tr>
+					<td><p:outputLabel value="Nouveau mot de passe" /></td>
+					<td><p:inputText type="password" value="#{userBean.newPassword}" /></td>
+				</tr>
+				<tr>
+					<td><p:outputLabel value="Retapper le nouveau mot de passe" /></td>
+					<td><p:inputText type="password" value="#{userBean.newRetPassword}" /></td>
+				</tr>
+			</table>
+			<p:separator/>
+			<div align="right" style="width:100%">
+				<p:commandButton update="dlg2" value="Valider"
+					icon="fa fa-fw fa-save"
+					actionListener="#{userBean.validerChangeMotDePasse}" 
+					onclick="PF('dlg2').hide();"/>
+				<p:commandButton update="dlg2" value="Annuler"
+					icon="fa fa-fw fa-close" actionListener="#{userBean.annulerClick}"
+					onclick="PF('dlg2').hide();" />
+			</div>
+			<p:messages id="messages" closable="true" showDetail="true"
+				style="FONT-SIZE: small; FONT-STYLE: italic;">
+				<p:autoUpdate />
+			</p:messages>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

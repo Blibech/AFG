@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+</h:head>
+<h:body style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<ui:include src="header.xhtml" />
+	
+	<b><font size="7" class="shadow">
+			<center>Gestion des produits<br/></center>
+	</font></b>	
+	<h:form id="f1">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		
+		<center><table width="90%">
+			<tr>
+				<td align="left">
+					<p:commandButton value="Chercher" icon="fa fa-fw fa-search" update="prods"/>
+					<p:inputText value="#{produitBean.affectation}" placeholder="Affectation" size="13">
+						<p:ajax event="keyup" update="prods"/>
+					</p:inputText>
+					<p:inputText value="#{produitBean.designation}" placeholder="Désignation" size="47">
+						<p:ajax event="keyup" update="prods"/>
+					</p:inputText>
+					<p:inputText value="#{produitBean.client}" placeholder="Client" size="13">
+						<p:ajax event="keyup" update="prods"/>
+					</p:inputText>
+					<p:inputText value="#{produitBean.emplacement}" placeholder="Emplacement" size="10">
+						<p:ajax event="keyup" update="prods"/>
+					</p:inputText>
+					<p:commandButton value="Annuler" icon="fa fa-fw fa-close"  actionListener="#{produitBean.annuler}" update="f1"/>
+				</td>
+			</tr>
+		</table></center>
+		<center>
+			<p:dataTable id="prods" var="prod" value="#{produitBean.produits}"
+				widgetVar="prod"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+				paginator="true" rows="10" paginatorPosition="top" style="width:90%" emptyMessage="Il n'y a pas des produits trouvés !">
+				<f:facet name="{Exporters}">
+			    	<div align="right" >
+			    		<h:commandLink>
+			                <img src="../images/excel.png" width="30" title="Exporter en excel"/>
+			                <p:dataExporter type="xls" target="prods" fileName="ASTEELFLASH -produits-" />
+			            </h:commandLink> 
+			            <h:commandLink>
+			                <img src="../images/pdf.png" width="30" title="Exporter en PDF"/>
+			                <p:dataExporter type="pdf" target="prods" fileName="ASTEELFLASH -produits-"/>
+			            </h:commandLink> 
+			            <p:commandButton value="Ajouter" icon="fa fa-fw fa-plus" actionListener="#{produitBean.add}" onclick="PF('add').show()" update="fadd"/>
+			        </div>
+		        </f:facet>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="Reference" />
+					</f:facet>
+					<h:outputText value="#{prod.reference}"
+						style="FONT-SIZE:small;COLOR:red;" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Affectation" />
+					</f:facet>
+					<h:outputText value="#{prod.affectation}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column width="40%">
+					<f:facet name="header">
+						<h:outputText value="Désignation" />
+					</f:facet>
+					<h:outputText value="#{prod.designation}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Client" />
+					</f:facet>
+					<h:outputText value="#{prod.client}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Emplacement" />
+					</f:facet>
+					<h:outputText value="#{prod.emplacement}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column width="8%">
+					<f:facet name="header">
+						<h:outputText value="Actions" />
+					</f:facet>
+					<p:commandLink actionListener="#{produitBean.select(prod)}" onclick="PF('supp').show()" update="fsupp">
+						<img src="../images/delete.png" style="width: 25px"/>
+					</p:commandLink>   
+	        		<p:commandLink actionListener="#{produitBean.select(prod)}" onclick="PF('edit').show()" update="fedit">
+						<img src="../images/edit.png" style="width: 25px" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</center>
+	</h:form>	
+	<p:dialog id="supp" header="Supprimer ?" widgetVar="supp" modal="true"
+		width="600" draggable="false" resizable="false">
+		<h:form id="fsupp">
+			<h:outputText
+				value="Voulez-vous vraiment supprimer ce produit ?" />
+			<p:separator />
+			<div align="right" style="width: 100%">
+				<p:commandButton value="Oui" actionListener="#{produitBean.supprimer}" onclick="PF('supp').close();" update="f1"/>
+				<p:commandButton value="Non" onclick="PF('supp').close();"/>
+			</div>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="edit" header="Modification" widgetVar="edit" modal="true"
+		width="500" draggable="false" resizable="false">
+		<h:form id="fedit">
+			<fieldset>
+				<table align="center">
+					<tr>
+						<td><p:outputLabel value="Affectation"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{produitBean.selectedProduit.affectation}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Désignation"/></td>
+						<td><p:inputText value="#{produitBean.selectedProduit.designation}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Client"/></td>
+						<td><p:inputText value="#{produitBean.selectedProduit.client}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Emplacement"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{produitBean.selectedProduit.emplacement}"/></td>
+					</tr>
+				</table>
+				<p:messages id="messages" closable="true" showDetail="true" style="FONT-SIZE: small; FONT-STYLE: italic;">
+					<p:autoUpdate />
+				</p:messages>
+				<div align="right" style="width: 100%">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save"
+					actionListener="#{produitBean.editer}" update="f1:prods"/>
+				<p:commandButton value="Quitter" icon="fa fa-fw fa-close"
+					onclick="PF('edit').close()" actionListener="#{produitBean.annuler}"/>
+			</div>
+			</fieldset>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="add" header="Nouveau produit" widgetVar="add" modal="true"
+		width="500" draggable="false" resizable="false">
+		<h:form id="fadd">
+			<fieldset>
+				<table align="center">
+					<tr>
+						<td><p:outputLabel value="Affectation"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{produitBean.affectation}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Désignation"/></td>
+						<td><p:inputText value="#{produitBean.designation}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Client"/></td>
+						<td><p:inputText value="#{produitBean.client}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Emplacement"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{produitBean.emplacement}"/></td>
+					</tr>
+				</table>
+				<p:messages id="messages" closable="true" showDetail="true" style="FONT-SIZE: small; FONT-STYLE: italic;">
+					<p:autoUpdate />
+				</p:messages>
+				<div align="right" style="width: 100%">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save"
+					actionListener="#{produitBean.ajouter}" update="f1:prods"/>
+				<p:commandButton value="Quitter" icon="fa fa-fw fa-close"
+					onclick="PF('add').close()" actionListener="#{produitBean.annuler}"/>
+			</div>
+			</fieldset>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

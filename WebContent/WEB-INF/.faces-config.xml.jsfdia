@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#connect.xhtml"
+  PATH="/pages/connect.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#connect.xhtml:0" NAME="item"
+   PATH="/pages/connect.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="accepted:#{userBean.connecter}:#pages#home.xhtml" NAME="output"
+    PATH="/pages/home.xhtml" TARGET="rules:#pages#home.xhtml"
+    TITLE="#{userBean.connecter}:accepted" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#home.xhtml" PATH="/pages/home.xhtml"
+  SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#home.xhtml:0" NAME="item"
+   PATH="/pages/home.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="logout:#{userBean.logout}:#pages#connect.xhtml" NAME="output"
+    PATH="/pages/connect.xhtml" TARGET="rules:#pages#connect.xhtml"
+    TITLE="#{userBean.logout}:logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#header.xhtml"
+  PATH="/pages/header.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#header.xhtml:0" NAME="item"
+   PATH="/pages/header.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="utilisateurs:#{navigationRulesBean.utilisateurs}:#pages#utilisateurs.xhtml"
+    NAME="output" PATH="/pages/utilisateurs.xhtml"
+    TARGET="rules:#pages#utilisateurs.xhtml"
+    TITLE="#{navigationRulesBean.utilisateurs}:utilisateurs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="home:#{navigationRulesBean.home}:#pages#home.xhtml"
+    NAME="output1" PATH="/pages/home.xhtml"
+    TARGET="rules:#pages#home.xhtml"
+    TITLE="#{navigationRulesBean.home}:home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="produits:#{navigationRulesBean.produits}:#pages#produits.xhtml"
+    NAME="output2" PATH="/pages/produits.xhtml"
+    TARGET="rules:#pages#produits.xhtml"
+    TITLE="#{navigationRulesBean.produits}:produits" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="fournisseurs:#{navigationRulesBean.fournisseurs}:#pages#fournisseurs.xhtml"
+    NAME="output3" PATH="/pages/fournisseurs.xhtml"
+    TARGET="rules:#pages#fournisseurs.xhtml"
+    TITLE="#{navigationRulesBean.fournisseurs}:fournisseurs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="outillages:#{navigationRulesBean.outillages}:#pages#outillages.xhtml"
+    NAME="output4" PATH="/pages/outillages.xhtml"
+    TARGET="rules:#pages#outillages.xhtml"
+    TITLE="#{navigationRulesBean.outillages}:outillages" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#utilisateurs.xhtml"
+  PATH="/pages/utilisateurs.xhtml" SHAPE="328,200,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#utilisateurs.xhtml:0" NAME="item"
+   PATH="/pages/utilisateurs.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="logout:#{userBean.logout}:#pages#connect.xhtml" NAME="output"
+    PATH="/pages/connect.xhtml" TARGET="rules:#pages#connect.xhtml"
+    TITLE="#{userBean.logout}:logout" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ADDED:#{userBean.saveNouveau}:#pages#relode.xhtml"
+    NAME="output1" PATH="/pages/relode.xhtml"
+    TARGET="rules:#pages#relode.xhtml"
+    TITLE="#{userBean.saveNouveau}:ADDED" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="EDITED:#{userBean.edit}:#pages#relode.xhtml"
+    NAME="output2" PATH="/pages/relode.xhtml"
+    TARGET="rules:#pages#relode.xhtml" TITLE="#{userBean.edit}:EDITED" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#relode.xhtml"
+  PATH="/pages/relode.xhtml" SHAPE="528,129,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#produits.xhtml"
+  PATH="/pages/produits.xhtml" SHAPE="288,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#produits.xhtml:0" NAME="item"
+   PATH="/pages/produits.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="logout:#{userBean.logout}:#pages#connect.xhtml" NAME="output"
+    PATH="/pages/connect.xhtml" TARGET="rules:#pages#connect.xhtml"
+    TITLE="#{userBean.logout}:logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#fournisseurs.xhtml"
+  PATH="/pages/fournisseurs.xhtml" SHAPE="352,497,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#fournisseurs.xhtml:0" NAME="item"
+   PATH="/pages/fournisseurs.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="logout:#{userBean.logout}:#pages#connect.xhtml" NAME="output"
+    PATH="/pages/connect.xhtml" TARGET="rules:#pages#connect.xhtml"
+    TITLE="#{userBean.logout}:logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#outillages.xhtml"
+  PATH="/pages/outillages.xhtml" SHAPE="368,497,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#outillages.xhtml:0" NAME="item"
+   PATH="/pages/outillages.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="logout:#{userBean.logout}:#pages#connect.xhtml" NAME="output"
+    PATH="/pages/connect.xhtml" TARGET="rules:#pages#connect.xhtml"
+    TITLE="#{userBean.logout}:logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

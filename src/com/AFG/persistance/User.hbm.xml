@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://localhost:8080/AFG/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 avr. 2018 14:26:28 by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+	<class name="com.AFG.persistance.User" table="user" catalog="afg_database"
+		optimistic-lock="version">
+		<id name="reference" type="int">
+			<column name="reference" />
+			<generator class="increment" />
+		</id>
+		<property name="username" type="string">
+			<column name="username" length="20" not-null="true" />
+		</property>
+		<property name="password" type="string">
+			<column name="password" length="20" not-null="true" />
+		</property>
+		<property name="nom" type="string">
+			<column name="nom" length="20" not-null="true" />
+		</property>
+		<property name="prenom" type="string">
+			<column name="prenom" length="20" not-null="true" />
+		</property>
+		<property name="tel" type="string">
+			<column name="tel" length="8" />
+		</property>
+		<property name="adress" type="string">
+			<column name="adress" length="45" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" length="45" />
+		</property>
+		<property name="nature" type="int">
+			<column name="nature" not-null="true" />
+		</property>
+	</class>
+</hibernate-mapping>

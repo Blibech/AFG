@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+</h:head>
+<h:body style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<ui:include src="header.xhtml" />
+	<center>
+	<b><font size="7" class="shadow">
+			Gestion des fournisseurs<br/>
+	</font></b>
+	</center>	
+	<h:form id="f1">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<div align="right" style="width: 95%">
+			<p:commandButton value="Ajouter" icon="fa fa-fw fa-plus" actionListener="#{fournisseurBean.add}" onclick="PF('add').show()" update="fadd"/>
+		</div>
+		<center>
+			<p:dataTable id="fours" var="fours" value="#{fournisseurBean.fournisseurs}"
+				widgetVar="fours"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginator="true" rows="10" paginatorPosition="top" style="width:90%" emptyMessage="Il n'y a pas des fournisseurs !">
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="Reference" />
+					</f:facet>
+					<h:outputText value="#{fours.reference}"
+						style="FONT-SIZE:small;COLOR:red;" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nom" />
+					</f:facet>
+					<h:outputText value="#{fours.nom}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Prénom" />
+					</f:facet>
+					<h:outputText value="#{fours.prenom}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="Addresse" />
+					</f:facet>
+					<h:outputText value="#{fours.adress}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Téléphone" />
+					</f:facet>
+					<h:outputText value="#{fours.tel}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="E-mail" />
+					</f:facet>
+					<h:outputText value="#{fours.email}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column width="8%">
+					<f:facet name="header">
+						<h:outputText value="Actions" />
+					</f:facet>
+					<p:commandLink actionListener="#{fournisseurBean.select(fours)}" onclick="PF('supp').show()" update="fsupp">
+						<img src="../images/delete.png" style="width: 25px"/>
+					</p:commandLink>   
+	        		<p:commandLink actionListener="#{fournisseurBean.select(fours)}" onclick="PF('edit').show()" update="fedit">
+						<img src="../images/edit.png" style="width: 25px" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</center>
+	</h:form>	
+	<p:dialog id="supp" header="Supprimer ?" widgetVar="supp" modal="true"
+		width="600" draggable="false" resizable="false">
+		<h:form id="fsupp">
+			<h:outputText
+				value="Voulez-vous vraiment supprimer ce fournisseur ?" />
+			<p:separator />
+			<div align="right" style="width: 100%">
+				<p:commandButton value="Oui" actionListener="#{fournisseurBean.supprimer}" onclick="PF('supp').close();" update="f1"/>
+				<p:commandButton value="Non" onclick="PF('supp').close();"/>
+			</div>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="edit" header="Modification" widgetVar="edit" modal="true"
+		width="500" draggable="false" resizable="false">
+		<h:form id="fedit">
+			<fieldset>
+				<table align="center">
+					<tr>
+						<td><p:outputLabel value="Nom"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{fournisseurBean.selectedFournisseur.nom}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Prénom"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{fournisseurBean.selectedFournisseur.prenom}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Téléphone"/></td>
+						<td><p:inputText value="#{fournisseurBean.selectedFournisseur.tel}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Addresse"/></td>
+						<td><p:inputText value="#{fournisseurBean.selectedFournisseur.adress}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="E-mail"/></td>
+						<td><p:inputText value="#{fournisseurBean.selectedFournisseur.email}"/></td>
+					</tr>
+				</table>
+				<p:messages id="messages" closable="true" showDetail="true" style="FONT-SIZE: small; FONT-STYLE: italic;">
+					<p:autoUpdate />
+				</p:messages>
+				<div align="right" style="width: 100%">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save"
+					actionListener="#{fournisseurBean.editer}" update="f1:fours"/>
+				<p:commandButton value="Quitter" icon="fa fa-fw fa-close"
+					onclick="PF('edit').close()" />
+			</div>
+			</fieldset>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="add" header="Nouveau fournisseur" widgetVar="add" modal="true"
+		width="500" draggable="false" resizable="false">
+		<h:form id="fadd">
+			<fieldset>
+				<table align="center" width="100%">
+					<tr>
+						<td><p:outputLabel value="Nom"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{fournisseurBean.nom}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Prénom"/><p:outputLabel value="*" style="COLOR:red; SIZE:2"/></td>
+						<td><p:inputText value="#{fournisseurBean.prenom}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Adsresse"/></td>
+						<td><p:inputText value="#{fournisseurBean.adress}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="Téléphone"/></td>
+						<td><p:inputText value="#{fournisseurBean.tel}"/></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="E-mail"/></td>
+						<td><p:inputText value="#{fournisseurBean.email}"/></td>
+					</tr>
+				</table>
+				<p:messages id="messages" closable="true" showDetail="true" style="FONT-SIZE: small; FONT-STYLE: italic;">
+					<p:autoUpdate />
+				</p:messages>
+				<div align="right" style="width: 100%">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save"
+					actionListener="#{fournisseurBean.ajouter}" update="f1:fours"/>
+				<p:commandButton value="Quitter" icon="fa fa-fw fa-close"
+					onclick="PF('add').close()" />
+			</div>
+			</fieldset>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

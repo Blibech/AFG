@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+	<style type="text/CSS">
+		.Oui{
+			background: #99ff88;
+		}
+		.Non{
+			background: #ff9988;
+		}
+	</style>
+</h:head>
+<h:body style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<ui:include src="header.xhtml" />
+	<center>
+		<b><font size="7" class="shadow">
+				Gestion des outillages<br/>
+		</font></b><br/>
+	</center>
+	<h:form id="f1">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<center>
+		<p:dataTable id="outs" var="out" value="#{outillageBean.outillages}"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {add}"
+				widgetVar="out" paginator="true" rows="10" paginatorPosition="top" style="width:95%"
+				emptyMessage="Il n'y a pas des outillages !">
+			<f:facet name="{add}">
+			    	<div align="right" >
+						<p:commandButton accesskey="A" title="Nouvel outillage" value="Ajouter" icon="fa fa-fw fa-plus" actionListener="#{outillageBean.newOutillage}" update="f4" onclick="PF('ajouter').show();"/>
+			        </div>
+		        </f:facet>
+			<p:column width="10%">
+				<f:facet name="header">
+					<h:outputText value="Code"/>
+				</f:facet>
+				<h:outputText value="#{out.code.substring(0, 11)}" style="FONT-SIZE:small;COLOR:red;"/>
+			</p:column>
+			<p:column width="30%">
+				<f:facet name="header">
+					<h:outputText value="Déscription" />
+				</f:facet>
+				<h:outputText value="#{out.description}" style="FONT-SIZE:small" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Quantité" />
+				</f:facet>
+				<h:outputText value='#{outillageBean.nombreRequrence(out.code)}' style='FONT-SIZE:small' />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Client" />
+				</f:facet>
+				<h:outputText value="#{out.client}" style="FONT-SIZE:small" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Date Validation" />
+				</f:facet>
+				<h:outputText value="#{out.dateVal}" style="FONT-SIZE:small" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Frequence" />
+				</f:facet>
+				<h:outputText value="#{out.frequence} jours" style="FONT-SIZE:small" />
+			</p:column>
+			<p:column styleClass="#{outillageBean.agileStyle(out.agile)}">
+				<f:facet name="header">
+					<h:outputText value="Agile" />
+				</f:facet>
+				<h:outputText value="#{outillageBean.agileStyle(out.agile)}" style="FONT-SIZE:small" />
+			</p:column>
+			<p:column width="7%">
+				<p:commandLink accesskey="I" title="Plus d'informations" actionListener="#{outillageBean.select(out)}" onclick="PF('edit').show()" update="f2">
+					<img src="../images/loop.png" style="width: 25px"/>
+				</p:commandLink> 
+				<p:commandLink accesskey="P" title="Produits">
+					<img src="../images/boxes.png" style="width: 25px" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		</center>	
+	</h:form>
+	<p:dialog id="edit" header="Informations" widgetVar="edit" modal="true"
+		width="900" height="580" resizable="false" draggable="false" >
+		<h:form id="f2">
+		<p:fieldset>
+				<p:outputLabel value="Outillage : #{outillageBean.selectedOutillage.code.substring(0,11)}" style="size:5"/>
+				<p:separator/>
+				<table>
+				<tr>
+					<td valign="top">
+						<table>
+							<tr>
+								<td valign="top"><p:outputLabel value="Déscription : "/></td>
+								<td valign="top"><p:inputTextarea rows="3" value="#{outillageBean.selectedOutillage.description}"/></td>
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Date validation : "/></td>
+							   	<td valign="top">
+							        <p:calendar value="#{outillageBean.selectedOutillage.dateVal}" size="9">
+							            <p:ajax event="dateSelect"/>
+							        </p:calendar>
+								</td>	
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Fréquance : "/></td>
+								<td valign="top"><p:spinner value="#{outillageBean.selectedOutillage.frequence}" size="2"/> (Jours)</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<table width="100%">
+							<tr>
+								<td valign="top"><p:outputLabel value="Client : "/><br/><br/><br/></td>
+								<td valign="top"><p:inputText value="#{outillageBean.selectedOutillage.client}"/></td>
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Fornisseur : "/></td>
+								<td valign="top">
+									<p:autoComplete completeMethod="#{fournisseurBean.autoC}" dropdown="true" value="#{outillageBean.selectedOutillage.fournisseur}"
+													var="four" itemLabel="#{four.nom} #{four.prenom}" itemValue="#{four}" autoSelection="true" forceSelection="true"
+													converter="fournisseurConverter">
+										
+									</p:autoComplete>
+									<p:commandButton accesskey="F" title="Nouveau fournisseur" icon="fa fa-fw fa-plus" onclick="PF('nf').show()"/>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Agile : "/></td>
+								<td valign="top">
+									<p:selectOneMenu value="#{outillageBean.selectedOutillage.agile}">
+										<f:selectItem itemLabel="Non" itemValue="0"></f:selectItem>
+										<f:selectItem itemLabel="Oui" itemValue="1"></f:selectItem>
+									</p:selectOneMenu>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+				<p:separator/>
+				<div align="right">
+					<p:commandButton accesskey="S" value="Enregistrer" icon="fa fa-fw fa-save" actionListener="#{outillageBean.edit}" onclick="PF('edit').hide()" update="f1,f2"/>
+				</div>
+		</p:fieldset>
+		<p:dataTable id="eouts" var="eout" value="#{outillageBean.editList}" widgetVar="eout" 
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {add}"
+				paginator="true" rows="5" paginatorPosition="top" style="width:100%">
+				<f:facet name="{add}">
+			    	<div align="right" >
+			            <p:commandButton accesskey="O" title="Nouvel outillage" value="Ajouter" icon="fa fa-fw fa-plus" actionListener="#{outillageBean.add}" onclick="PF('add').show()" update="fadd"/>
+			        </div>
+		        </f:facet>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Code" />
+				</f:facet>
+				<h:outputText value="#{eout.code}" style="FONT-SIZE:small; COLOR:red" />
+			</p:column>
+			<p:column >
+				<f:facet name="header">
+					<h:outputText value="Emplacement" />
+				</f:facet>
+				<h:outputText value="#{eout.empl}" style="FONT-SIZE:small;"/>
+			</p:column>
+			<p:column width="10%">
+				<f:facet name="header">
+					<h:outputText value="Actions" />
+				</f:facet>
+				<p:commandLink accesskey="M" actionListener="#{outillageBean.select(eout)}" onclick="PF('editer').show()" update="fediter">
+					<img src="../images/edit.png" style="width: 25px" />
+				</p:commandLink> 
+				<p:commandLink accesskey="R" actionListener="#{outillageBean.select(eout)}" onclick="PF('supp').show()">
+					<img src="../images/delete.png" style="width: 25px"/>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="nf" header="Nouveau fornisseur" widgetVar="nf" modal="true"
+		width="360" draggable="true" resizable="false" position="600,250">
+		<h:form id="f3">
+		<p:panelGrid columns="2" layout="grid">
+			<p:outputLabel value="Nom"/><p:inputText value="#{fournisseurBean.nom}" size="10"/>
+			<p:outputLabel value="Prenom"/><p:inputText value="#{fournisseurBean.prenom}" size="10"/>
+		</p:panelGrid>		
+		<p:separator/>
+		<div align="right">
+			<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save" actionListener="#{fournisseurBean.ajouter}" onclick="PF('nf').hide()" update="f1,f2,f3,f4"/>
+			<p:commandButton value="Annuler" icon="fa fa-fw fa-close" actionListener="#{fournisseurBean.add}" onclick="PF('nf').hide()" update="f1,f2,f3,f4"/>
+		</div>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="supp" header="Supprimer ?" widgetVar="supp" modal="true"
+		width="600" draggable="false" resizable="false">
+		<h:form id="fsupp">
+			<h:outputText
+				value="Voulez-vous vraiment supprimer cet outillage ?" />
+			<p:separator />
+			<div align="right" style="width: 100%">
+				<p:commandButton value="Oui" icon="fa fa-fw fa-check" onclick="PF('supp').hide();" actionListener="#{outillageBean.supprimer}" update="f1,f2:eouts,f4:eouts2"/>
+				<p:commandButton value="Non" icon="fa fa-fw fa-close" onclick="PF('supp').hide();"/>
+			</div>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="add" header="Nouvel outillage" widgetVar="add" modal="true"
+		width="600" draggable="false" resizable="false">
+		<h:form id="fadd">
+			<table>
+				<tr>
+					<td><h:outputText value="Emplacement"/> : </td>
+					<td><p:inputText value="#{outillageBean.selectedOutillage.empl}"/></td>
+				</tr>
+			</table>
+			<p:separator />
+			<div align="right" style="width: 100%">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save" onclick="PF('add').hide();" actionListener="#{outillageBean.ajouter}" update="f1,f2:eouts,f4:eouts2"/>
+				<p:commandButton value="Annuler" icon="fa fa-fw fa-close" onclick="PF('add').hide();"/>
+			</div>
+		</h:form>
+	</p:dialog>
+	<p:dialog id="editer" header="Modifier outillage" widgetVar="editer" modal="true"
+		width="600" draggable="false" resizable="false">
+		<h:form id="fediter">
+			<table>
+				<tr>
+					<td><h:outputText value="Emplacement"/> : </td>
+					<td><p:inputText value="#{outillageBean.selectedOutillage.empl}"/></td>
+				</tr>
+			</table>
+			<p:separator />
+			<div align="right" style="width: 100%">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save" onclick="PF('editer').hide();" actionListener="#{outillageBean.editerEout}" update="f1,f2:eouts,f4:eouts2"/>
+				<p:commandButton value="Annuler" icon="fa fa-fw fa-close" onclick="PF('editer').hide();"/>
+			</div>
+		</h:form>
+	</p:dialog>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<p:dialog id="ajouter" header="Informations" widgetVar="ajouter" modal="true"
+		width="900" height="580" resizable="false" draggable="false" >
+		<h:form id="f4">
+		<p:fieldset>
+				<p:outputLabel value="Code" style="size:5"/><font color="red" size="2">*</font> : <p:inputText value="#{outillageBean.code}" disabled="#{(outillageBean.table)}"/>
+				<p:separator/>
+				<table>
+				<tr>
+					<td valign="top">
+						<table>
+							<tr>
+								<td valign="top"><p:outputLabel value="Déscription : "/></td>
+								<td valign="top"><p:inputTextarea rows="3" value="#{outillageBean.description}" disabled="#{(outillageBean.table)}"/></td>
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Date validation : "/></td>
+							   	<td valign="top">
+							        <p:calendar value="#{outillageBean.dateVal}" size="9" disabled="#{(outillageBean.table)}">
+							            <p:ajax event="dateSelect"/>
+							        </p:calendar>
+								</td>	
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Fréquance : "/></td>
+								<td valign="top"><p:spinner value="#{outillageBean.frequence}" size="2" disabled="#{(outillageBean.table)}"/> (Jours)</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top">
+						<table width="100%">
+							<tr>
+								<td valign="top"><p:outputLabel value="Client : "/><br/><br/><br/></td>
+								<td valign="top"><p:inputText value="#{outillageBean.client}" disabled="#{(outillageBean.table)}"/></td>
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Fornisseur"/><font color="red" size="2">*</font> : </td>
+								<td valign="top">
+									<p:autoComplete completeMethod="#{fournisseurBean.autoC}" dropdown="true" value="#{outillageBean.fournisseur}"
+													var="four" itemLabel="#{four.nom} #{four.prenom}" itemValue="#{four}" autoSelection="true" forceSelection="true"
+													converter="fournisseurConverter" disabled="#{(outillageBean.table)}">
+										
+									</p:autoComplete>
+									<p:commandButton accesskey="F" icon="fa fa-fw fa-plus" onclick="PF('nf').show()" disabled="#{(outillageBean.table)}"/>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><p:outputLabel value="Agile : "/></td>
+								<td valign="top">
+									<p:selectOneMenu value="#{outillageBean.agile}" disabled="#{(outillageBean.table)}">
+										<f:selectItem itemLabel="Non" itemValue="0"></f:selectItem>
+										<f:selectItem itemLabel="Oui" itemValue="1"></f:selectItem>
+									</p:selectOneMenu>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+				<p:separator/>
+				<div align="right">
+					<p:commandButton rendered="#{!(outillageBean.table)}" value="Enregistrer" icon="fa fa-fw fa-save" update="f1,f4" actionListener="#{outillageBean.saveNewOutillage}"/>
+				</div>
+		</p:fieldset>
+		<p:dataTable id="eouts2" var="eout" value="#{outillageBean.editList}" widgetVar="eout2" 
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {add}"
+				paginator="true" rows="5" paginatorPosition="top" style="width:100%" rendered="#{outillageBean.table}">
+				<f:facet name="{add}">
+			    	<div align="right" >
+			            <p:commandButton accesskey="O" value="Ajouter" icon="fa fa-fw fa-plus" actionListener="#{outillageBean.add}" onclick="PF('add').show()" update="fadd"/>
+			        </div>
+		        </f:facet>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Code" />
+				</f:facet>
+				<h:outputText value="#{eout.code}" style="FONT-SIZE:small; COLOR:red" />
+			</p:column>
+			<p:column >
+				<f:facet name="header">
+					<h:outputText value="Emplacement" />
+				</f:facet>
+				<h:outputText value="#{eout.empl}" style="FONT-SIZE:small;"/>
+			</p:column>
+			<p:column width="10%">
+				<f:facet name="header">
+					<h:outputText value="Actions" />
+				</f:facet>
+				<p:commandLink actionListener="#{outillageBean.select(eout)}" onclick="PF('editer').show()" update="fediter">
+					<img src="../images/edit.png" style="width: 25px" />
+				</p:commandLink> 
+				<p:commandLink actionListener="#{outillageBean.select(eout)}" onclick="PF('supp').show()">
+					<img src="../images/delete.png" style="width: 25px"/>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		</h:form>
+	</p:dialog>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</h:body>
+</html>

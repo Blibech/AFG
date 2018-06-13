@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15248526832120" configfile="/AFG/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="pages/connect.xhtml" x="554" y="2098" id="pf15251715234223" referenceLink="//@navigationRule.9/@navigationCase.8/@toViewId|" outlinks="pf152849706460317" inlinks="pf15251718853418 pf15284970037660 pf15284970037661 pf15284970037662 pf15284970037663 pf15285824652110 pf15288451983510 pf15288454696585 pf15288454696586" path="/pages/connect.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/default.xhtml" x="338" y="562" id="pf15251715234225" referenceLink="//@navigationRule.9/@navigationCase.1/@toViewId|" outlinks="pf15251718853418" inlinks="pf15284970037665" path="/pages/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/header.xhtml" x="122" y="1831" id="pf15267292954383" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf15267292954384 pf15284970037665 pf15284970037666 pf15284970037667 pf15284970037668 pf15284970037669 pf15288451983511 pf15288451983510 pf15288451983512" path="/pages/header.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/utilisateurs.xhtml" x="338" y="178" id="pf15267292954385" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf15284970037663 pf152849700376610 pf152849700376611" inlinks="pf15267292954384" path="/pages/utilisateurs.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/produits.xhtml" x="338" y="946" id="pf152849700376612" referenceLink="//@navigationRule.9/@navigationCase.2/@toViewId|" outlinks="pf15284970037660" inlinks="pf15284970037666" path="/pages/produits.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/outillages.xhtml" x="338" y="1330" id="pf152849700376613" referenceLink="//@navigationRule.9/@navigationCase.4/@toViewId|" outlinks="pf15284970037661" inlinks="pf15284970037668" path="/pages/outillages.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/fournisseurs.xhtml" x="338" y="1714" id="pf152849700376714" referenceLink="//@navigationRule.9/@navigationCase.3/@toViewId|" outlinks="pf15284970037662" inlinks="pf15284970037667" path="/pages/fournisseurs.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/relode.xhtml" x="554" y="178" id="pf152849700376715" referenceLink="//@navigationRule.8/@navigationCase.2/@toViewId|" inlinks="pf152849700376610 pf152849700376611" path="/pages/relode.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/acceuil.xhtml" x="338" y="2098" id="pf152849700376716" referenceLink="//@navigationRule.9/@navigationCase.5/@toViewId|" outlinks="pf15285824652110" inlinks="pf15284970037669 pf152849706460317" path="/pages/acceuil.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/demandes.xhtml" x="338" y="2482" id="pf15288451983523" referenceLink="//@navigationRule.9/@navigationCase.6/@toViewId|" outlinks="pf15288454696585" inlinks="pf15288451983511" path="/pages/demandes.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/maintenance.xhtml" x="338" y="2866" id="pf15288451983524" referenceLink="//@navigationRule.9/@navigationCase.7/@toViewId|" outlinks="pf15288454696586" inlinks="pf15288451983512" path="/pages/maintenance.xhtml"/>
+  <links id="pf15251718853418" target="pf15251715234223" source="pf15251715234225" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15267292954384" target="pf15267292954385" source="pf15267292954383" outcome="utilisateurs" fromaction="#{navigationRulesBean.utilisateurs}"/>
+  <links id="pf15284970037660" target="pf15251715234223" source="pf152849700376612" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15284970037661" target="pf15251715234223" source="pf152849700376613" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15284970037662" target="pf15251715234223" source="pf152849700376714" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15284970037663" target="pf15251715234223" source="pf15267292954385" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf152849700376610" target="pf152849700376715" source="pf15267292954385" outcome="ADDED" fromaction="#{userBean.saveNouveau}"/>
+  <links id="pf152849700376611" target="pf152849700376715" source="pf15267292954385" outcome="EDITED" fromaction="#{userBean.edit}"/>
+  <links id="pf15284970037665" target="pf15251715234225" source="pf15267292954383" outcome="home" fromaction="#{navigationRulesBean.home}"/>
+  <links id="pf15284970037666" target="pf152849700376612" source="pf15267292954383" outcome="produits" fromaction="#{navigationRulesBean.produits}"/>
+  <links id="pf15284970037667" target="pf152849700376714" source="pf15267292954383" outcome="fournisseurs" fromaction="#{navigationRulesBean.fournisseurs}"/>
+  <links id="pf15284970037668" target="pf152849700376613" source="pf15267292954383" outcome="outillages" fromaction="#{navigationRulesBean.outillages}"/>
+  <links id="pf15284970037669" target="pf152849700376716" source="pf15267292954383" outcome="acceuil" fromaction="#{navigationRulesBean.acceuil}"/>
+  <links id="pf152849706460317" target="pf152849700376716" source="pf15251715234223" outcome="accepted" fromaction="#{userBean.connecter}"/>
+  <links id="pf15285824652110" target="pf15251715234223" source="pf152849700376716" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15288451983511" target="pf15288451983523" source="pf15267292954383" outcome="demandes" fromaction="#{navigationRulesBean.demandes}"/>
+  <links id="pf15288451983510" target="pf15251715234223" source="pf15267292954383" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15288451983512" target="pf15288451983524" source="pf15267292954383" outcome="maintenance" fromaction="#{navigationRulesBean.maintenance}"/>
+  <links id="pf15288454696585" target="pf15251715234223" source="pf15288451983523" outcome="logout" fromaction="#{userBean.logout}"/>
+  <links id="pf15288454696586" target="pf15251715234223" source="pf15288451983524" outcome="logout" fromaction="#{userBean.logout}"/>
+</pageflow:Pageflow>

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+	<style type="text/css">
+		.shadow{
+			text-shadow: 0 1px 0 #ccc,
+        		0 2px 0 #c9c9c9,
+        		0 3px 0 #bbb,
+        		0 4px 0 #b9b9b9,
+        		0 5px 0 #aaa,
+        		0 6px 1px rgba(0,0,200,.1),
+        		0 0 5px rgba(0,0,0,.1),
+        		0 1px 3px rgba(0,0,200,.3),
+        		0 3px 5px rgba(0,0,0,0.2),
+  		      	0 5px 10px rgba(0,0,200,.25),
+        		0 10px 10px rgba(0,0,0,.2),
+        		0 20px 20px rgba(0,0,200,.15);
+		}
+	</style>
+</h:head>
+<h:body>
+	<div style="background-color: #222222">
+		<h:form id="formLogout">
+			<table width="100%">
+				<tr>
+					<td align="left">
+						<p:commandLink accesskey="H" action="#{navigationRulesBean.acceuil}">
+							<img src="../images/header_logo.png" />
+						</p:commandLink>
+					</td>
+					<td align="right" width="100%">
+						<!-- USER ACCOUNT -->
+						<table>
+							<tr>
+								<td><p:commandLink accesskey="U" action="#{navigationRulesBean.home}">
+										<img width="30px" src="../images/user.png" />
+									</p:commandLink></td>
+								<td><p:commandLink value="#{userBean.userOnline.nom} #{userBean.userOnline.prenom}"
+										action="#{navigationRulesBean.home}"
+										style="COLOR: #AAAAAA; font-WEIGHT: bold; FONT-SIZE: 14px" />
+									
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td align="right">
+						<!-- LOGOUT BUTTON -->
+						<table>
+							<tr>
+								<td><p:commandLink accesskey="D" action="#{userBean.logout}">
+										<img width="30px" src="../images/logout.png" />
+									</p:commandLink></td>
+								<td><p:commandLink action="#{userBean.logout}"
+										value="Déconnexion"
+										style="COLOR: #AAAAAA; font-WEIGHT: bold; FONT-SIZE: 14px" />
+								</td>
+							</tr>
+						</table>
+					</td> 
+				</tr>
+			</table>
+			<p:menubar>
+				<p:menuitem value="  Acceuil" icon="fa fa-home" action="#{navigationRulesBean.acceuil}" />
+				<p:menuitem value="  Utulisateurs" icon="fa fa-user" action="#{navigationRulesBean.utilisateurs}" />
+				<p:menuitem value="  Demandes" icon="fa fa-file-text-o" action="#{navigationRulesBean.demandes}"/>
+				<p:menuitem value="  Fournisseurs" icon="fa fa-shopping-cart" action="#{navigationRulesBean.fournisseurs}"/>
+				<p:menuitem value="  Produits" icon="fa fa-cubes" action="#{navigationRulesBean.produits}"/>
+				<p:menuitem value="  Outillages" icon="fa fa-gear" action="#{navigationRulesBean.outillages}"/>
+				<p:menuitem value="  Maintenance" icon="fa fa-area-chart" action="#{navigationRulesBean.maintenance}"/>
+			</p:menubar>
+		</h:form>
+	</div>
+	<br />
+</h:body>
+</html>

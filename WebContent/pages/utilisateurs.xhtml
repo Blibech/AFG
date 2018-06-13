@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+	
+</h:head>
+<h:body
+	style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<ui:include src="header.xhtml" />
+	<b><font size="7" class="shadow" style="">
+			<center>Gestion des utilisateurs<br/></center>
+	</font></b>
+	<h:form id="f1">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<div align="right" style="width: 95%">
+			<p:commandButton value="Ajouter" icon="fa fa-fw fa-plus"
+				onclick="PF('add').show();" actionListener="#{userBean.nouveau}"
+				update="f1,f3" />
+		</div>
+		<center>
+			<p:dataTable id="users" var="user" value="#{userBean.users}"
+				widgetVar="user"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginator="true" rows="10" paginatorPosition="top" style="width:90%" emptyMessage="Il n'y a pas des utilisateurs !">
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="Reference" />
+					</f:facet>
+					<h:outputText value="#{user.reference}"
+						style="FONT-SIZE:small;COLOR:red;" />
+
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nom" />
+					</f:facet>
+					<h:outputText value="#{user.nom}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Prenom" />
+					</f:facet>
+					<h:outputText value="#{user.prenom}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Addresse" />
+					</f:facet>
+					<h:outputText value="#{user.adress}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Téléphone" />
+					</f:facet>
+					<h:outputText value="#{user.tel}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="E-Mail" />
+					</f:facet>
+					<h:outputText value="#{user.email}" style="FONT-SIZE:small" />
+				</p:column>
+				<p:column width="12%">
+					<f:facet name="header">
+						<h:outputText value="Actions" />
+					</f:facet>
+					<p:commandLink disabled="#{userBean.thisIsIt(user)}"
+						actionListener="#{userBean.select(user)}"
+						onclick="PF('dlg').show();">
+						<img src="../images/delete.png" style="width: 25px" />
+					</p:commandLink> 
+	        		<p:commandLink disabled="#{userBean.thisIsIt(user)}"
+						update="f4:infosEdit" actionListener="#{userBean.select(user)}"
+						onclick="PF('edit').show();">
+						<img src="../images/edit.png" style="width: 25px" />
+					</p:commandLink> 
+	        		<p:commandLink disabled="#{userBean.thisIsIt(user)}">
+						<img src="../images/gears.png" style="width: 25px" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</center>
+		<p:dialog id="dlg" header="Supprimer ?" widgetVar="dlg" modal="true"
+			width="600" draggable="false" resizable="false">
+			<h:form id="f2">
+				<h:outputText
+					value="Voulez-vous vraiment supprimer cet utilisateur ?" />
+				<p:separator />
+				<div align="right" style="width: 100%">
+					<p:commandButton value="Oui" actionListener="#{userBean.supprimer}"
+						update="f1" />
+					<p:commandButton value="Non" onclick="PF('dlg').hide();"
+						update="f1:dlg,f1:users" />
+				</div>
+			</h:form>
+		</p:dialog>
+	</h:form>
+
+	<p:dialog id="add" header="Nouveau utilisateur" width="900"
+		widgetVar="add" modal="true" draggable="true" resizable="false"
+		closable="false">
+		<h:form id="f3">
+			<p:fieldset>
+				<p:panelGrid id="tbl" columns="2" layout="grid">
+					<p:panelGrid>
+						<table width="100%">
+							<tr>
+								<td><p:outputLabel value="Nom" /> <p:outputLabel value="*"
+										style="COLOR:red; SIZE:2" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.nom}" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Prénom" /> <p:outputLabel
+										value="*" style="COLOR:red; FONT-SIZE:2" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.prenom}" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Adresse" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.adress}" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Téléphone" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.tel}" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="E-mail" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.email}" /></td>
+							</tr>
+						</table>
+					</p:panelGrid>
+					<p:fieldset>
+						<table>
+							<tr>
+								<td><p:outputLabel value="Nom d'utilisateur" /> <p:outputLabel
+										value="*" style="COLOR:red; SIZE:2" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.username}" /></td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Mot de passe" /> <p:outputLabel value="*" style="COLOR:red; SIZE:2" /></td>
+								<td><p:inputText value="#{userBean.selectedUser.password}"
+										type="password" /></td>
+							</tr>
+						</table>
+					</p:fieldset>
+				</p:panelGrid>
+			</p:fieldset>
+			<p:messages id="messages" closable="true" showDetail="true"
+				style="FONT-SIZE: small; FONT-STYLE: italic;">
+				<p:autoUpdate />
+			</p:messages>
+			<br />
+			<div align="right">
+				<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save"
+					action="#{userBean.saveNouveau}" update="f1:users" />
+				<p:commandButton value="Annuler" icon="fa fa-fw fa-close"
+					onclick="PF('add').close()" />
+				<br /> <br /> <br />
+			</div>
+
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="edit"
+		header="Modification"
+		width="700" widgetVar="edit" modal="true" draggable="false"
+		resizable="false" closable="true">
+		<h:form id="f4">
+			<p:panelGrid id="infosEdit" columns="1" layout="grid"
+				style="width:100%;">
+				<div>
+					<p:outputLabel value="INFORMATIONS GENERALE DE L'UTILISATEUR :"
+						style="font-size:18pt" />
+					<p:outputLabel value="#{userBean.selectedUser.reference}"
+						style="font-size:18pt;color:red" />
+				</div>
+				<br />
+				<p:panelGrid columns="2" layout="grid" style="width:100%">
+					<p:outputLabel value="Nom d'utilisateur" />
+					<p:inputText value="#{userBean.selectedUser.username}"
+						readonly="true" style="color:grey" />
+					<p:outputLabel value="Nom" />
+					<p:inputText value="#{userBean.selectedUser.nom}" />
+					<p:outputLabel value="Prénom" />
+					<p:inputText value="#{userBean.selectedUser.prenom}" />
+					<p:outputLabel value="Adresse" />
+					<p:inputText value="#{userBean.selectedUser.adress}" />
+					<p:outputLabel value="Téléphone" />
+					<p:inputText value="#{userBean.selectedUser.tel}" />
+					<p:outputLabel value="E-mail" />
+					<p:inputText value="#{userBean.selectedUser.email}" />
+				</p:panelGrid>
+				<p:messages id="messages" closable="true" showDetail="true"
+					style="FONT-SIZE: small; FONT-STYLE: italic;">
+					<p:autoUpdate />
+				</p:messages>
+				<div align="right" style="width: 100%">
+					<p:commandButton value="Enregistrer" icon="fa fa-fw fa-save"
+						action="#{userBean.edit}" />
+					<p:commandButton value="Annuler" icon="fa fa-fw fa-close"
+						onclick="PF('edit').close()" />
+				</div>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>

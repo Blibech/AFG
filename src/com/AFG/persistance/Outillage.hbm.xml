@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://localhost:8080/AFG/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 avr. 2018 14:26:28 by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+	<class name="com.AFG.persistance.Outillage" table="outillage"
+		catalog="afg_database" optimistic-lock="version">
+		<id name="reference" type="int">
+			<column name="reference" />
+			<generator class="increment" />
+		</id>
+		<property name="code" type="string">
+			<column name="code" length="20" not-null="true" />
+		</property>
+		<property name="description" type="string">
+			<column name="description" length="250" />
+		</property>
+		<property name="client" type="string">
+			<column name="client" length="45" />
+		</property>
+		<many-to-one name="fournisseur" class="com.AFG.persistance.Fournisseur"
+			fetch="select" lazy="false">
+			<column name="fournisseur" not-null="true" />
+		</many-to-one>
+		<property name="dateVal" type="date">
+			<column name="date_val" length="10" />
+		</property>
+		<property name="agile" type="java.lang.Integer">
+			<column name="agile" />
+		</property>
+		<property name="frequence" type="int">
+			<column name="frequence" not-null="false" />
+		</property>
+		<property name="nb" type="java.lang.Integer">
+			<column name="nb" not-null="true"/>
+		</property>
+		<property name="empl" type="java.lang.String">
+			<column name="empl" not-null="false"/>
+		</property>
+	</class>
+</hibernate-mapping>

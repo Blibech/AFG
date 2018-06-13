@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://localhost:8080/AFG/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">afg2018</property>
+        <property name="hibernate.connection.username">afg</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/afg_database</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    	<property name="show_sql">false</property>
+    	<property name="hibernate.current_session_context_class">thread</property>
+    	
+    	
+    	<mapping resource="com/AFG/persistance/Demande.hbm.xml" />
+    	<mapping resource="com/AFG/persistance/Fournisseur.hbm.xml" />
+    	<mapping resource="com/AFG/persistance/Outillage.hbm.xml" />
+    	<mapping resource="com/AFG/persistance/Produit.hbm.xml" />
+    	<mapping resource="com/AFG/persistance/User.hbm.xml" />
+    	<mapping resource="com/AFG/persistance/Affectation.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://localhost:8080/AFG/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 avr. 2018 14:26:28 by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+	<class name="com.AFG.persistance.Affectation" table="affectation"
+		catalog="afg_database" optimistic-lock="version">
+		<id name="reference" type="int">
+			<column name="reference" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="outillage" class="com.AFG.persistance.Outillage"
+			fetch="select">
+			<column name="outillage" not-null="true" />
+		</many-to-one>
+		<many-to-one name="produit" class="com.AFG.persistance.Produit"
+			fetch="select">
+			<column name="demandeur" not-null="true" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

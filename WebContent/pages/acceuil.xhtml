@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ASTEELFLASH | Gestion des outillages de production</title>
+	<meta http-equiv="#{userBean.noSession}" content="0; URL=connect.jsf" />
+	<link rel="icon" type="image/png" href="../images/logo_SMALL.png"/>
+	<style type="text/css">
+		.ui-commandlink{
+			color:#007acc;
+		}
+		.ui-commandlink:hover{
+			color:#4db8ff;
+		}
+		.ui-commandlink:active{
+			color:#9933ff;
+		}
+	</style>
+	
+</h:head>
+<h:body style="background: url(../images/wallpaper.png) no-repeat center center fixed; 
+  			   -webkit-background-size: cover;
+  			   -moz-background-size: cover;
+  			   -o-background-size: cover;
+			   background-size: cover;">
+	<ui:include src="header.xhtml" />
+	<center>
+		<b><font size="7" class="shadow">
+				Gestion des outillages de production<br/>
+		</font></b>	
+		
+		<br/><br/>
+		<table border="0" width="60%">
+			<tr>
+				<td valign="middle" align="center">
+					<p:commandLink action="#{navigationRulesBean.utilisateurs}">
+						<img src="../images/gestion/utilisateurs.png" width="50%"/><br/>
+						<font size="2">Gestion d'utilisateurs</font>
+					</p:commandLink>
+				</td>
+				<td valign="middle" align="center">
+					<p:commandLink action="#{navigationRulesBean.demandes}">
+						<img src="../images/gestion/demandes.png" width="50%"/><br/>
+						<font size="2">Gestion des demandes</font>
+					</p:commandLink>
+				</td>
+				<td valign="middle" align="center">
+					<p:commandLink action="#{navigationRulesBean.maintenance}">
+						<img src="../images/gestion/maintenance.png" width="50%"/><br/>
+						<font size="2">Maintenance</font>
+					</p:commandLink>
+				</td>
+			</tr>
+			<tr><td><br/></td></tr>
+			<tr>
+				<td valign="middle" align="center">
+					<p:commandLink action="#{navigationRulesBean.fournisseurs}">
+						<img src="../images/gestion/fournisseurs.png" width="50%"/><br/>
+						<font size="2">Gestion des fournisseurs</font>
+					</p:commandLink>
+				</td>
+				<td valign="middle" align="center">
+					<p:commandLink action="#{navigationRulesBean.produits}">
+						<img src="../images/gestion/produits.png" width="50%"/><br/>
+						<font size="2">Gestion des produits</font>
+					</p:commandLink>
+				</td>
+				<td valign="middle" align="center">
+					<p:commandLink action="#{navigationRulesBean.outillages}">
+						<img src="../images/gestion/outillages.png" width="50%"/><br/>
+						<font size="2">Gestion d'outillages</font>
+					</p:commandLink>
+				</td>
+			</tr>
+		</table>
+		
+	</center>
+</h:body>
+</html>
